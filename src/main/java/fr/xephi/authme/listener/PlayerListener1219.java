@@ -5,8 +5,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
-import javax.inject.Inject;
-
 /**
  * Listener of player events for Paper-specific events (Minecraft 1.21.9+).
  * Handles AsyncPlayerSpawnLocationEvent which replaces the deprecated PlayerSpawnLocationEvent.
