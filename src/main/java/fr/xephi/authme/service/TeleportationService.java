@@ -135,6 +135,13 @@ public class TeleportationService implements Reloadable {
             ? limbo.getLocation().getWorld().getName()
             : null;
 
+        // Use quit location from database instead of limbo world when available,
+        // as limbo may contain the world after teleportUnAuthedToSpawn
+        if (auth.getWorld() != null) {
+            worldName = auth.getWorld();
+            logger.debug("Using world from quit location for player `{0}`: {1}", player.getName(), worldName);
+        }
+
         // The world in LimboPlayer is from where the player comes, before any teleportation by AuthMe
         if (mustForceSpawnAfterLogin(worldName)) {
             logger.debug("Teleporting `{0}` to spawn because of 'force-spawn after login'", player.getName());
