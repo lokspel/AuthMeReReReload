@@ -182,7 +182,8 @@ public class PlayerListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         final Player player = event.getPlayer();
 
-        if (!PlayerListener19Spigot.isPlayerSpawnLocationEventCalled()) {
+        if (!PlayerListener19Spigot.isPlayerSpawnLocationEventCalled()
+            && !PlayerListener1219.isAsyncPlayerSpawnLocationEventCalled()) {
             teleportationService.teleportOnJoin(player);
         }
 

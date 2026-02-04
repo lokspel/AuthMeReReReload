@@ -12,7 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>21</java.version>
-        <paper.version>1.21.8-R0.1-SNAPSHOT</paper.version>
+        <paper.version>1.21.11-R0.1-SNAPSHOT</paper.version>
 
         <!-- Plugin description file properties -->
         <pluginDescription.name>AuthMe</pluginDescription.name>
