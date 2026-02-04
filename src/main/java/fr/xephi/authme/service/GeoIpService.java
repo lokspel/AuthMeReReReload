@@ -8,7 +8,7 @@ import com.maxmind.db.CHMCache;
 import com.maxmind.db.Reader.FileMode;
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
-import com.maxmind.geoip2.model.AbstractCountryResponse;
+import com.maxmind.geoip2.model.CountryResponse;
 import com.maxmind.geoip2.record.Country;
 import fr.xephi.authme.ConsoleLogger;
 import fr.xephi.authme.initialization.DataFolder;
@@ -43,7 +43,7 @@ import java.util.zip.GZIPInputStream;
 public class GeoIpService {
 
     private static final String LICENSE =
-            "[LICENSE] This product includes GeoLite2 data created by MaxMind, available at https://www.maxmind.com";
+        "[LICENSE] This product includes GeoLite2 data created by MaxMind, available at https://www.maxmind.com";
 
     private static final String DATABASE_NAME = "GeoLite2-Country";
     private static final String DATABASE_FILE = DATABASE_NAME + ".mmdb";
@@ -136,7 +136,7 @@ public class GeoIpService {
      */
     private void updateDatabase() {
         logger.info("Downloading GEO IP database, because the old database is older than "
-                + UPDATE_INTERVAL_DAYS + " days or doesn't exist");
+            + UPDATE_INTERVAL_DAYS + " days or doesn't exist");
 
         Path downloadFile = null;
         Path tempFile = null;
@@ -293,7 +293,7 @@ public class GeoIpService {
         if (InternetProtocolUtils.isLocalAddress(ip)) {
             return "LOCALHOST";
         }
-        return getCountry(ip).map(Country::getIsoCode).orElse("--");
+        return getCountry(ip).map(Country::isoCode).orElse("--");
     }
 
     /**
@@ -306,7 +306,7 @@ public class GeoIpService {
         if (InternetProtocolUtils.isLocalAddress(ip)) {
             return "LocalHost";
         }
-        return getCountry(ip).map(Country::getName).orElse("N/A");
+        return getCountry(ip).map(Country::name).orElse("N/A");
     }
 
     /**
@@ -329,8 +329,8 @@ public class GeoIpService {
         try {
             InetAddress address = InetAddress.getByName(ip);
 
-            // Reader.getCountry() can be null for unknown addresses
-            return Optional.ofNullable(databaseReader.country(address)).map(AbstractCountryResponse::getCountry);
+            // Reader.country() can be null for unknown addresses
+            return Optional.ofNullable(databaseReader.country(address)).map(CountryResponse::country);
         } catch (UnknownHostException e) {
             // Ignore invalid ip addresses
             // Legacy GEO IP Database returned an unknown country object with Country-Code: '--' and Country-Name: 'N/A'
