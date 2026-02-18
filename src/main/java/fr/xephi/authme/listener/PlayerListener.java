@@ -491,11 +491,15 @@ public class PlayerListener implements Listener {
     }
 
     private boolean isInventoryWhitelisted(InventoryView inventory) {
-        if (inventory == null) {
+        if (inventory == null || !(inventory instanceof InventoryView)) {
             return false;
         }
-        Set<String> whitelist = settings.getProperty(RestrictionSettings.UNRESTRICTED_INVENTORIES);
-        return whitelist.contains(ChatColor.stripColor(inventory.getTitle()).toLowerCase(Locale.ROOT));
+        try {
+            Set<String> whitelist = settings.getProperty(RestrictionSettings.UNRESTRICTED_INVENTORIES);
+            return whitelist.contains(ChatColor.stripColor(inventory.getTitle()).toLowerCase(Locale.ROOT));
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
